@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connection Tester</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white flex items-center justify-center min-h-screen">
+    <div class="bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-700 text-center">
+        <h1 class="text-2xl font-bold mb-4">Backend Connection Test</h1>
+        <p class="text-gray-400 mb-6 text-sm">Testing: <span class="text-emerald-400">http://localhost:3000/</span></p>
+        
+        <div id="status-box" class="p-4 rounded-lg bg-slate-700 mb-6">
+            <span id="status-text">Ready to test...</span>
+        </div>
+
+        <button onclick="runTest()" class="bg-emerald-500 hover:bg-emerald-600 px-6 py-2 rounded-xl font-bold transition">
+            Start Test
+        </button>
+
+        <div id="details" class="mt-6 text-left text-xs text-gray-500 font-mono"></div>
+    </div>
+
+    <script>
+        async function runTest() {
+            const statusBox = document.getElementById('status-box');
+            const statusText = document.getElementById('status-text');
+            const details = document.getElementById('details');
+            
+            statusText.innerText = "Checking...";
+            details.innerText = "";
+
+            try {
+                // Testing the base URL of your server
+                const response = await fetch('http://localhost:3000/');
+                
+                if (response.ok || response.status === 404) {
+                    statusBox.className = "p-4 rounded-lg bg-emerald-500/20 border border-emerald-500 text-emerald-500";
+                    statusText.innerText = "✅ CONNECTION SUCCESSFUL!";
+                    details.innerText = "The browser can see your Node.js server at Port 3000.";
+                }
+            } catch (err) {
+                statusBox.className = "p-4 rounded-lg bg-red-500/20 border border-red-500 text-red-500";
+                statusText.innerText = "❌ CONNECTION FAILED";
+                details.innerText = "Error: " + err.message + "\\n\\nCommon Fixes:\\n1. Is your Node.js server running?\\n2. Is app.use(cors()) at the top of server.js?\\n3. Are you definitely on port 3000?";
+            }
+        }
+    </script>
+</body>
+</html>

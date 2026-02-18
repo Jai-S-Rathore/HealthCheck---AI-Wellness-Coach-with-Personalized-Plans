@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCheck | Personalized Workouts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="p1.css">
+</head>
+<body class="bg-slate-900 text-gray-100 font-sans antialiased">
+
+    <nav class="bg-slate-900/50 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+                    <span class="text-slate-900 font-bold">Hc</span>
+                </div>
+                <span class="text-xl font-bold text-white tracking-tight">HealthCheck<span class="text-emerald-500"></span></span>
+            </div>
+            
+           <div class="flex items-center gap-8 text-sm font-medium text-slate-400">
+                <a href="p1.html" class="hover:text-emerald-400 flex items-center gap-2 transition">
+                    <i class="fas fa-home"></i>Dashboard
+                </a>
+                <a href="ai-coach.html" class="hover:text-emerald-400 flex items-center gap-2 transition">
+                    <i class="fas fa-robot"></i>AI Coach
+                </a>
+                <a href="workout.html" class="hover:text-emerald-400 transition flex items-center gap-2">
+                    <i class="fas fa-dumbbell"></i>Workouts
+                </a>
+                <a href="reports.html" class="hover:text-emerald-400 transition">
+                    <i class="fas fa-file-medical"></i>Reports</a>
+                <a href="profile.html" class="hover:text-emarald-400 transition">Profile</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-slate-400">
+                    <i class="fas fa-user-circle mr-2"></i><span id="user-name">User</span>
+                </span>
+                <button onclick="logout()" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </button>
+            </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-6">
+        <header class="mb-10">
+            <h2 class="text-3xl font-bold text-white">Your Training Zone</h2>
+            <p class="text-slate-400">AI-generated routines tailored to your goals.</p> 
+            <p class="text-slate-400">We use Machine Learning model to study your habits and create routines that evolve as you get stronger.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="space-y-4">
+                <button onclick="fetchWorkout('strength')" class="w-full p-6 bg-slate-900/40 border border-emerald-500/20 rounded-3xl hover:border-emerald-500 transition-all text-left group">
+                    <i class="fas fa-weight-hanging text-2xl text-emerald-500 mb-3 group-hover:scale-110 transition"></i>
+                    <h4 class="font-bold text-white">Strength Training</h4>
+                    <p class="text-xs text-slate-500">Build muscle & power</p>
+                </button>
+                
+                <button onclick="fetchWorkout('hiit')" class="w-full p-6 bg-slate-900/40 border border-blue-500/20 rounded-3xl hover:border-blue-500 transition-all text-left group">
+                    <i class="fas fa-bolt text-2xl text-blue-400 mb-3 group-hover:scale-110 transition"></i>
+                    <h4 class="font-bold text-white">HIIT Cardio</h4>
+                    <p class="text-xs text-slate-500">Max calorie burn</p>
+                </button>
+
+                <div id="night-workout-card" class="p-6 bg-slate-900/40 border border-purple-500/20 rounded-3xl relative overflow-hidden group">
+                    <div id="lock-overlay" class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm flex flex-col items-center justify-center z-10">
+                        <i class="fas fa-lock text-purple-400 mb-2"></i>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-400">Unlocks at 10 PM</span>
+                    </div>
+                    <i class="fas fa-moon text-2xl text-purple-400 mb-3"></i>
+                    <h4 class="font-bold text-white">Night Routine</h4>
+                    <p class="text-xs text-slate-500">Sleep-friendly mobility</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2">
+                <div class="bg-slate-950/50 rounded-3xl border border-slate-800 p-8 min-h-[500px]">
+                    <div id="workout-content" class="prose prose-invert max-w-none text-slate-300">
+                        <div class="text-center py-20">
+                            <i class="fas fa-person-running text-5xl text-slate-700 mb-4"></i>
+                            <p>Select a category to view your daily plan.</p>
+                            <p class = "text-green-400 text-2xl text-slate-500 mt-2 ">Coming Soon....</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="p1.js"></script>
+    <script>
+        // Move your checkWorkoutAccess logic here to unlock the night card
+        function checkPageAccess() {
+            const hour = new Date().getHours();
+            const lock = document.getElementById('lock-overlay');
+            if (hour >= 22 || hour < 5) {
+                if (lock) lock.classList.add('hidden');
+            }
+        }
+        checkPageAccess();
+    </script>
+</body>
+</html>

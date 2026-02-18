@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCheck | AI Wellness Coach</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* 3D Perspective and Flip Animation */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        
+        .preserve-3d {
+            transform-style: preserve-3d;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            position: absolute;
+            inset: 0;
+        }
+        
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        
+        #progress-card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-slate-900 text-gray-100 font-sans antialiased">
+    
+    <nav class="bg-slate-900/50 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+                    <span class="text-slate-900 font-bold">Hc</span>
+                </div>
+                <span class="text-xl font-bold text-white tracking-tight">HealthCheck<span class="text-emerald-500"></span></span>
+            </div>
+            <div class="flex items-center gap-8 text-sm font-medium text-slate-400">
+                <a href="p1.html" class="hover:text-emerald-400 flex items-center gap-2 transition">
+                    <i class="fas fa-home"></i>Dashboard
+                </a>
+                <a href="ai-coach.html" class="hover:text-emerald-400 flex items-center gap-2 transition">
+                    <i class="fas fa-robot"></i>AI Coach
+                </a>
+                <a href="workout.html" class="hover:text-emerald-400 transition flex items-center gap-2 transition">
+                    <i class="fas fa-dumbbell"></i>Workouts
+                </a>
+                <a href="reports.html" class="hover:text-emerald-400 transition flex items-center gap-2 transition">
+                    <i class="fas fa-file-medical"></i>Reports
+                </a>
+                <a href="profile.html" class="hover:text-emarald-400 transition">Profile</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-slate-400">
+                    <i class="fas fa-user-circle mr-2"></i><span id="user-name">User</span>
+                </span>
+                <button onclick="logout()" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="max-w-7xl mx-auto p-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"> 
+            
+            <div class="bg-slate-900/40 p-8 rounded-3xl border border-emerald-500/20 shadow-xl">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400">
+                        <i class="fas fa-fire text-2xl"></i>
+                    </div>
+                    <span class="text-emerald-400 text-sm font-semibold"><i class="fas fa-arrow-trend-up"></i> Today</span>
+                </div>
+                <h3 class="text-slate-300 text-sm font-medium mb-2">Calories Consumed</h3>
+                <div class="flex items-baseline gap-2">
+                    <span id="calories-consumed" class="text-4xl font-bold text-white">0</span>
+                    <span class="text-slate-400 text-sm">/ <span class="goal-value">2000</span> kcal</span>
+                </div>
+            </div>
+
+            <div class="perspective-1000 h-[300px]"> <div id="progress-card" class="relative transition-all duration-700 preserve-3d">
+                    
+                    <div class="backface-hidden bg-slate-900/40 p-8 rounded-3xl border border-blue-500/20 shadow-xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 mb-4">
+                                <i class="fas fa-chart-line text-2xl"></i>
+                            </div>
+                            <h3 class="text-slate-300 text-sm font-medium mb-2">Daily Progress</h3>
+                            <div class="flex items-baseline gap-2 mb-3">
+                                <span id="daily-progress" class="text-4xl font-bold text-white">0%</span>
+                                <span class="text-slate-400 text-sm">of goal</span>
+                            </div>
+                            <div class="bg-slate-700/50 rounded-full h-2 overflow-hidden">
+                                <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <button onclick="flipToGoalSetter()" 
+                                class="w-full py-3 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 text-blue-300 font-semibold rounded-xl transition-all">
+                            <i class="fas fa-bullseye mr-2"></i>Change Target
+                        </button>
+                    </div>
+                    
+                    <div class="backface-hidden rotate-y-180 bg-slate-900 border-2 border-purple-500/30 p-8 rounded-3xl shadow-2xl flex flex-col justify-between">
+                        <h3 class="text-slate-300 text-sm font-medium text-center">Set Your Daily Goal</h3>
+                        <input type="number" id="new-goal-input" value="2000" min="1000" max="5000"
+                               class="w-full bg-slate-950 border border-slate-700 rounded-xl py-3 text-white text-3xl font-bold text-center focus:border-purple-500 outline-none">
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setQuickGoal(1500)" class="p-2 bg-slate-800 rounded-lg text-xs hover:bg-slate-700 transition">Loss</button>
+                            <button onclick="setQuickGoal(2000)" class="p-2 bg-slate-800 rounded-lg text-xs hover:bg-slate-700 transition text-emerald-400">Maintain</button>
+                            <button onclick="setQuickGoal(2500)" class="p-2 bg-slate-800 rounded-lg text-xs hover:bg-slate-700 transition text-purple-400">Gain</button>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="flipToProgress()" class="flex-1 py-2 bg-slate-800 text-white rounded-xl text-sm">Cancel</button>
+                            <button onclick="saveNewGoal()" class="flex-1 py-2 bg-emerald-500 text-slate-900 font-bold rounded-xl text-sm">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/40 p-8 rounded-3xl border border-purple-500/20 shadow-xl flex flex-col justify-center">
+                <div class="w-12 h-12 bg-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400 mb-4">
+                    <i class="fas fa-dumbbell text-2xl"></i>
+                </div>
+                <h3 class="text-slate-300 text-sm font-medium mb-2">Calories Remaining</h3>
+                <div class="flex items-baseline gap-2">
+                    <span id="calories-left" class="text-4xl font-bold text-white">2000</span>
+                    <span class="text-slate-400 text-sm">kcal left</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="bg-slate-900/40 p-8 rounded-3xl border border-emerald-500/20 shadow-xl">
+                <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+                    <i class="fas fa-chart-pie text-emerald-400"></i>Daily Breakdown
+                </h3>
+                <div class="relative h-64">
+                    <canvas id="calorieChart"></canvas>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                        <span id="consumed-val" class="text-3xl font-bold text-white">0</span>
+                        <span class="text-gray-400 text-xs uppercase">kcal</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 bg-slate-900/40 p-8 rounded-3xl border border-emerald-500/20 shadow-xl">
+                <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+                    <i class="fas fa-utensils text-emerald-400"></i>Log Your Meal
+                </h3>
+                <div class="relative mb-6">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="search-input" placeholder="Search for food (e.g., Butter Chicken)" 
+                           class="w-full bg-slate-950 border border-slate-800 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-emerald-500 transition">
+                    <div id="search-results" class="absolute z-50 w-full mt-2 bg-slate-900 border border-slate-800 rounded-xl hidden max-h-60 overflow-y-auto shadow-2xl"></div>
+                </div>
+
+                <div class="flex items-center justify-between p-6 bg-slate-950/50 rounded-2xl border border-slate-800 gap-4 mb-6">
+                    <div class="flex-1">
+                        <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">Selected Item</p>
+                        <p id="selected-food-name" class="font-bold text-emerald-400 text-lg">Nothing selected</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">Base Calories</p>
+                        <p id="selected-food-calories" class="font-bold text-2xl text-white">0 <span class="text-sm text-slate-500 font-normal">kcal</span></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="text-[10px] text-gray-500 uppercase tracking-widest block mb-2">Quantity (portions)</label>
+                        <div class="flex items-center bg-slate-950 border border-slate-800 rounded-xl overflow-hidden">
+                            <button onclick="changeQty(-1)" class="p-3 hover:bg-slate-800 text-slate-400 transition"><i class="fas fa-minus"></i></button>
+                            <input type="number" id="food-quantity" value="1" min="1" class="w-full bg-transparent text-center text-white focus:outline-none font-bold">
+                            <button onclick="changeQty(1)" class="p-3 hover:bg-slate-800 text-slate-400 transition"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-gray-500 uppercase tracking-widest block mb-2">Meal Type</label>
+                        <select id="food-type-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 transition">
+                            <option value="breakfast">Breakfast</option>
+                            <option value="lunch">Lunch</option>
+                            <option value="dinner">Dinner</option>
+                            <option value="snack">Snacks</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="add-item-btn" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-black rounded-xl shadow-lg shadow-emerald-500/20 transition-all uppercase tracking-widest">
+                    Add To Daily Log
+                </button>
+            </div>
+        </div>
+
+        <div class="lg:col-span-3 bg-slate-800 rounded-2xl p-6 border border-slate-700 shadow-xl mt-8">
+            <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-medium">Today's Meals</h3>
+            <span class="text-xs text-emerald-400 font-bold uppercase tracking-widest">Live Updates</span>
+            </div>
+    
+             <div class="overflow-x-auto">
+            <table class="w-full text-left">
+            <thead>
+                <tr class="text-gray-500 text-xs uppercase tracking-wider border-b border-slate-700">
+                    <th class="pb-4 font-medium">Meal Type</th>
+                    <th class="pb-4 font-medium">Food Item</th>
+                    <th class="pb-4 font-medium">Calories</th>
+                    <th class="pb-4 font-medium">Time</th>
+                </tr>
+            </thead>
+            <tbody id="meal-log-table" class="divide-y divide-slate-700/50">
+                </tbody>
+             </table>
+             <div id="no-meals-msg" class="hidden text-center py-8 text-gray-500 italic text-sm">
+            No meals logged yet. Start your journey above!
+             </div>
+        </div>
+        </div>
+        <div class="mt-8 bg-slate-900/40 p-8 rounded-3xl border border-emerald-500/20 shadow-xl">
+    <div class="flex justify-between items-center mb-6">
+        <div>
+            <h3 class="text-xl font-bold text-white">Consistency Tracker</h3>
+            <p class="text-slate-400 text-sm">30-Day Calorie Trend</p>
+        </div>
+        <div class="flex flex-col items-end">
+            <div id="health-grade-badge" class="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 font-black text-2xl text-gray-500">--</div>
+            <span class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Current Grade</span>
+        </div>
+    </div>
+
+    <div class="relative h-72 w-full bg-slate-800/30 rounded-2xl p-4 border border-slate-700/50">
+        <canvas id="trendChart"></canvas>
+    </div>
+
+    <div id="consistency-feedback" class="mt-4 text-center text-sm text-slate-400 italic bg-slate-950/30 py-3 rounded-xl border border-slate-800/50">
+        Loading AI analysis...
+    </div>
+</div>
+    </main>
+  
+    <script src="p1.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Ignore dependencies
+node_modules/
+
+# Ignore sensitive API keys and secrets
+.env
+
+# Ignore environment test results
+test-ai-plan.js
+test-full-flow.js
+
+# Ignore system files
+.DS_Store

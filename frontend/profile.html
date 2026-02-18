@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthTracker Pro | My Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="p1.css">
+</head>
+<body class="bg-slate-900 text-gray-100 font-sans antialiased">
+
+    <nav class="bg-slate-900/50 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+                    <span class="text-slate-900 font-bold">Hc</span>
+                </div>
+                <span class="text-xl font-bold text-white tracking-tight">HealthCheck<span class="text-emerald-500"></span></span>
+            </div>
+            
+            <div class="flex items-center gap-8 text-sm font-medium text-slate-400">
+                <a href="p1.html" class="hover:text-emerald-400 flex items-center gap-2 transition">
+                    <i class="fas fa-home"></i>Dashboard
+                </a>
+                <a href="ai-coach.html" class="hover:text-emerald-400 flex items-center gap-2 transition">
+                    <i class="fas fa-robot"></i>AI Coach
+                </a>
+                <a href="workout.html" class="hover:text-emerald-400 transition flex items-center gap-2 transition">
+                    <i class="fas fa-dumbbell"></i>Workouts
+                </a>
+                <a href="reports.html" class="hover:text-emerald-400 transition flex items-center gap-2 transition">
+                     <i class="fas fa-file-medical"></i>Reports</a>
+                    
+                <a href="profile.html" class="hover:text-emarald-400 transition">Profile</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-slate-400">
+                    <i class="fas fa-user-circle mr-2"></i><span id="user-name">User</span>
+                </span>
+                <button onclick="logout()" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-6 mt-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="md:col-span-1 space-y-6">
+                <div class="bg-slate-900/40 p-8 rounded-3xl border border-slate-800 shadow-xl text-center">
+                    <div class="w-24 h-24 bg-gradient-to-tr from-emerald-500 to-blue-500 rounded-full flex items-center justify-center text-slate-900 text-4xl font-black mx-auto mb-4 border-4 border-slate-800">
+                        <span id="profile-initials">U</span>
+                    </div>
+                    <h3 id="profile-name" class="text-xl font-bold text-white">User Name</h3>
+                    <p id="profile-email" class="text-slate-500 text-sm">user@example.com</p>
+                    <div class="mt-6 pt-6 border-t border-slate-800">
+                        <p class="text-xs text-slate-500 uppercase tracking-widest mb-1">Account Status</p>
+                        <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded-full border border-emerald-500/20">PRO PLAN</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 space-y-6">
+                <div class="bg-slate-900/40 p-8 rounded-3xl border border-emerald-500/20 shadow-2xl">
+                    <h2 class="text-2xl font-bold text-white mb-6">Health Metrics</h2>
+                    
+                    <form id="profile-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-[10px] text-slate-500 uppercase tracking-widest block mb-2">Current Weight (kg)</label>
+                                <input type="number" id="weight" step="0.1" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:border-emerald-500 outline-none transition">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-slate-500 uppercase tracking-widest block mb-2">Height (cm)</label>
+                                <input type="number" id="height" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:border-emerald-500 outline-none transition">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-slate-500 uppercase tracking-widest block mb-2">Age</label>
+                                <input type="number" id="age" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:border-emerald-500 outline-none transition">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-slate-500 uppercase tracking-widest block mb-2">Activity Level</label>
+                                <select id="activity" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:border-emerald-500 outline-none transition">
+                                    <option value="sedentary">Sedentary (No exercise)</option>
+                                    <option value="light">Lightly Active (Exercise 1-2 days)</option>
+                                    <option value="moderate">Moderate (Exercise 3-5 days)</option>
+                                    <option value="active">Very Active (Daily exercise)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-black rounded-xl shadow-lg shadow-emerald-500/20 transition-all uppercase tracking-widest">
+                            Update Health Profile
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="p1.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load identity info from localStorage
+            const name = localStorage.getItem('userName') || 'User';
+            const email = localStorage.getItem('userEmail') || 'No email found';
+            
+            document.getElementById('profile-name').innerText = name;
+            document.getElementById('profile-email').innerText = email;
+            document.getElementById('profile-initials').innerText = name.charAt(0).toUpperCase();
+
+            // Fetch current health metrics from backend
+            fetchHealthProfile();
+        });
+
+        async function fetchHealthProfile() {
+    const token = localStorage.getItem('token');
+    try {
+        const response = await fetch('http://localhost:3000/api/auth/profile', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        
+        if (response.ok) {
+            // Update the display labels
+            document.getElementById('profile-name').innerText = data.name;
+            document.getElementById('profile-email').innerText = data.email; // No more "Not found"
+            document.getElementById('profile-initials').innerText = data.name.charAt(0).toUpperCase();
+
+            // Fill the input fields for editing
+            document.getElementById('weight').value = data.weight || '';
+            document.getElementById('height').value = data.height || '';
+            document.getElementById('age').value = data.age || '';
+            document.getElementById('activity').value = data.activity_level || 'sedentary';
+        }
+        } catch (err) {
+        console.error("Profile fetch failed", err);
+        }
+    }
+        document.getElementById('profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            const profileData = {
+                weight: document.getElementById('weight').value,
+                height: document.getElementById('height').value,
+                age: document.getElementById('age').value,
+                activity_level: document.getElementById('activity').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/auth/update-profile', {
+                    method: 'PUT',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(profileData)
+                });
+
+                if (response.ok) {
+                    showToast('Profile updated! AI plans will now be more accurate.', 'success');
+                }
+            } catch (err) {
+                showToast('Update failed', 'error');
+            }
+        });
+    </script>
+</body>
+</html>
