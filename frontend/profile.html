@@ -100,8 +100,8 @@
             </div>
         </div>
     </main>
-
     <script src="p1.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // Load identity info from localStorage
@@ -126,9 +126,9 @@
         
         if (response.ok) {
             // Update the display labels
-            document.getElementById('profile-name').innerText = data.name;
-            document.getElementById('profile-email').innerText = data.email; // No more "Not found"
-            document.getElementById('profile-initials').innerText = data.name.charAt(0).toUpperCase();
+            document.getElementById('profile-name').innerText = data.name ||  'User';
+            document.getElementById('profile-email').innerText = data.email || 'No Email'; // No more "Not found"
+            document.getElementById('profile-initials').innerText = (data.name|| 'U').charAt(0).toUpperCase();
 
             // Fill the input fields for editing
             document.getElementById('weight').value = data.weight || '';
@@ -152,7 +152,7 @@
 
             try {
                 const response = await fetch('http://localhost:3000/api/auth/update-profile', {
-                    method: 'PUT',
+                    method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`

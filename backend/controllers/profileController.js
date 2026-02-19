@@ -25,17 +25,26 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
+
+
 exports.getProfile = async (req, res) => {
     try {
         const userId = req.user.id;
-        const [rows] = await pool.query('SELECT * FROM profiles WHERE user_id = ?', [userId]);
+        
+        const [rows] = await pool.query(`
+            SELECT u.username as name, u.email, p.weight, p.height, p.age, p.activity_level 
+            FROM Users u
+            LEFT JOIN profiles p ON u.id = p.user_id
+            WHERE u.id = ?
+        `, [userId]);
         
         if (rows.length > 0) {
-            res.json(rows[0]);
+            res.json(rows[0]); // This now includes name and email!
         } else {
-            res.status(404).json({ message: 'Profile not found' });
+            res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
+        console.error('Fetch Profile Error:', error);
         res.status(500).json({ error: 'Failed to fetch profile' });
     }
 };
