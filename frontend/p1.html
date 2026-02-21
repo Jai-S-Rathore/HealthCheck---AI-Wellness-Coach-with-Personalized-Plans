@@ -38,19 +38,21 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+        .mobile-menu { transition: transform 0.3s ease; }
     </style>
 </head>
 <body class="bg-slate-900 text-gray-100 font-sans antialiased">
     
-    <nav class="bg-slate-900/50 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    < class="bg-slate-900/50 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
-                    <span class="text-slate-900 font-bold">Hc</span>
+                    <span class="text-slate-900 font-bold text-sm">Hc</span>
                 </div>
                 <span class="text-xl font-bold text-white tracking-tight">HealthCheck<span class="text-emerald-500"></span></span>
             </div>
-            <div class="flex items-center gap-8 text-sm font-medium text-slate-400">
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-400">
                 <a href="p1.html" class="hover:text-emerald-400 flex items-center gap-2 transition">
                     <i class="fas fa-home"></i>Dashboard
                 </a>
@@ -66,7 +68,7 @@
                 <a href="profile.html" class="hover:text-emarald-400 transition">Profile</a>
             </div>
 
-            <div class="flex items-center gap-4">
+            <div class="hidden lg:flex items-center gap-4">
                 <span class="text-sm text-slate-400">
                     <i class="fas fa-user-circle mr-2"></i><span id="user-name">User</span>
                 </span>
@@ -75,27 +77,54 @@
                 </button>
             </div>
         </div>
+<!-- Mobile Menu -->
+        <button onclick="toggleMenu()" class="lg:hidden text-white p-2">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    
+        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900 border-t border-slate-800">
+            <div class="flex flex-col p-4 space-y-2">
+                <a href="p1.html" class="p-3 hover:bg-slate-800 rounded-lg transition flex items-center gap-2">
+                    <i class="fas fa-home"></i>Dashboard
+                </a>
+                <a href="ai-coach.html" class="p-3 hover:bg-slate-800 rounded-lg transition flex items-center gap-2">
+                    <i class="fas fa-robot"></i>AI Coach
+                </a>
+                <a href="workout.html" class="p-3 hover:bg-slate-800 rounded-lg transition flex items-center gap-2">
+                    <i class="fas fa-dumbbell"></i>Workouts
+                </a>
+                <a href="reports.html" class="p-3 hover:bg-slate-800 rounded-lg transition flex items-center gap-2">
+                    <i class="fas fa-file-medical"></i>Reports
+                </a>
+                <a href="profile.html" class="p-3 hover:bg-slate-800 rounded-lg transition flex items-center gap-2">
+                    <i class="fas fa-user"></i>Profile
+                </a>
+                <button onclick="logout()" class="p-3 bg-red-500/20 text-red-400 rounded-lg transition text-left flex items-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i>Logout
+                </button>
+            </div>
+        </div>
     </nav>
     
-    <main class="max-w-7xl mx-auto p-6">
+    <main class="max-w-7xl mx-auto p-4 sm:p-6">
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"> 
+        <div class="grid grid-cols-1 md:gid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12"> 
             
-            <div class="bg-slate-900/40 p-8 rounded-3xl border border-emerald-500/20 shadow-xl">
+            <div class="bg-slate-900/40 p-6 sm:p-8 rounded-3xl border border-emerald-500/20 shadow-xl">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400">
-                        <i class="fas fa-fire text-2xl"></i>
+                    <div class="w-10 h-10 sm:w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400">
+                        <i class="fas fa-fire text-xl sm:text-2xl"></i>
                     </div>
-                    <span class="text-emerald-400 text-sm font-semibold"><i class="fas fa-arrow-trend-up"></i> Today</span>
+                    <span class="text-emerald-400 text-xs sm:text-sm font-semibold"><i class="fas fa-arrow-trend-up"></i> Today</span>
                 </div>
-                <h3 class="text-slate-300 text-sm font-medium mb-2">Calories Consumed</h3>
+                <h3 class="text-slate-300 text-xs sm:text-sm font-medium mb-2">Calories Consumed</h3>
                 <div class="flex items-baseline gap-2">
-                    <span id="calories-consumed" class="text-4xl font-bold text-white">0</span>
-                    <span class="text-slate-400 text-sm">/ <span class="goal-value">2000</span> kcal</span>
+                    <span id="calories-consumed" class="text-3xl sm:text-4xl font-bold text-white">0</span>
+                    <span class="text-slate-400 text-xs sm:text-sm">/ <span class="goal-value">2000</span> kcal</span>
                 </div>
             </div>
 
-            <div class="perspective-1000 h-[300px]"> <div id="progress-card" class="relative transition-all duration-700 preserve-3d">
+            <div class="perspective-1000 main-h-[280px] sm:h-[300px]"> <div id="progress-card" class="relative transition-all duration-700 preserve-3d">
                     
                     <div class="backface-hidden bg-slate-900/40 p-8 rounded-3xl border border-blue-500/20 shadow-xl flex flex-col justify-between">
                         <div>
@@ -146,54 +175,56 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="bg-slate-900/40 p-8 rounded-3xl border border-emerald-500/20 shadow-xl">
-                <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
-                    <i class="fas fa-chart-pie text-emerald-400"></i>Daily Breakdown
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="bg-slate-900/40 p-6 sm:p-8 rounded-3xl border border-emerald-500/20 shadow-xl order-2 lg:order-1">
+                <h3 class="text-base sm:text-lg font-semibold mb-4 sm:mb-6 flex items-center gap-2">
+                    <i class="fas fa-chart-pie text-emerald-400"></i>
+                    <span class="text-sm sm:text-base">Daily Breakdown</span>
                 </h3>
-                <div class="relative h-64">
+                <div class="relative h-48 sm:h-64">
                     <canvas id="calorieChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                        <span id="consumed-val" class="text-3xl font-bold text-white">0</span>
+                        <span id="consumed-val" class="text-2xl sm:text-3xl font-bold text-white">0</span>
                         <span class="text-gray-400 text-xs uppercase">kcal</span>
                     </div>
                 </div>
             </div>
 
-            <div class="lg:col-span-2 bg-slate-900/40 p-8 rounded-3xl border border-emerald-500/20 shadow-xl">
-                <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
-                    <i class="fas fa-utensils text-emerald-400"></i>Log Your Meal
+            <div class="lg:col-span-2 bg-slate-900/40 p-6 sm:p-8 rounded-3xl border border-emerald-500/20 shadow-xl order-1 sm:order-2">
+                <h3 class="text-base sm:text-lg font-semibold mb-4 sm:mb-6 flex items-center gap-2">
+                    <i class="fas fa-utensils text-emerald-400"></i>
+                    <span class="text-sm sm:text-base">Log Your Meal</span>
                 </h3>
-                <div class="relative mb-6">
-                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <div class="relative mb-4 sm:mb-6">
+                    <i class="fas fa-search absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                     <input type="text" id="search-input" placeholder="Search for food (e.g., Butter Chicken)" 
-                           class="w-full bg-slate-950 border border-slate-800 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-emerald-500 transition">
+                           class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 sm:py-4 pl-10 sm:pl-12 pr-4 text-sm sm:text-base text-white focus:outline-none focus:border-emerald-500 transition">
                     <div id="search-results" class="absolute z-50 w-full mt-2 bg-slate-900 border border-slate-800 rounded-xl hidden max-h-60 overflow-y-auto shadow-2xl"></div>
                 </div>
 
-                <div class="flex items-center justify-between p-6 bg-slate-950/50 rounded-2xl border border-slate-800 gap-4 mb-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-6 bg-slate-950/50 rounded-2xl border border-slate-800 gap-4 mb-6">
                     <div class="flex-1">
                         <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">Selected Item</p>
-                        <p id="selected-food-name" class="font-bold text-emerald-400 text-lg">Nothing selected</p>
+                        <p id="selected-food-name" class="font-bold text-emerald-400 text-base sm:text-lg">Nothing selected</p>
                     </div>
-                    <div class="text-right">
+                    <div class="sm:text-right">
                         <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">Base Calories</p>
-                        <p id="selected-food-calories" class="font-bold text-2xl text-white">0 <span class="text-sm text-slate-500 font-normal">kcal</span></p>
+                        <p id="selected-food-calories" class="font-bold text-xl sm:text-2xl text-white">0 <span class="text-sm text-slate-500 font-normal">kcal</span></p>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 sm:mb-6">
                     <div>
                         <label class="text-[10px] text-gray-500 uppercase tracking-widest block mb-2">Quantity (portions)</label>
                         <div class="flex items-center bg-slate-950 border border-slate-800 rounded-xl overflow-hidden">
-                            <button onclick="changeQty(-1)" class="p-3 hover:bg-slate-800 text-slate-400 transition"><i class="fas fa-minus"></i></button>
-                            <input type="number" id="food-quantity" value="1" min="1" class="w-full bg-transparent text-center text-white focus:outline-none font-bold">
-                            <button onclick="changeQty(1)" class="p-3 hover:bg-slate-800 text-slate-400 transition"><i class="fas fa-plus"></i></button>
+                            <button onclick="changeQty(-1)" class="p-2 sm:p-3 hover:bg-slate-800 text-slate-400 transition"><i class="fas fa-minus text-sm"></i></button>
+                            <input type="number" id="food-quantity" value="1" min="1" class="w-full bg-transparent text-center text-white focus:outline-none font-bold text-sm sm:text-base">
+                            <button onclick="changeQty(1)" class="p-2 sm:p-3 hover:bg-slate-800 text-slate-400 transition"><i class="fas fa-plus text-sm"></i></button>
                         </div>
                     </div>
                     <div>
                         <label class="text-[10px] text-gray-500 uppercase tracking-widest block mb-2">Meal Type</label>
-                        <select id="food-type-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 transition">
+                        <select id="food-type-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 sm:p-3 text-sm sm:text-base text-white focus:outline-none focus:border-emerald-500 transition">
                             <option value="breakfast">Breakfast</option>
                             <option value="lunch">Lunch</option>
                             <option value="dinner">Dinner</option>
@@ -202,26 +233,26 @@
                     </div>
                 </div>
 
-                <button id="add-item-btn" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-black rounded-xl shadow-lg shadow-emerald-500/20 transition-all uppercase tracking-widest">
+                <button id="add-item-btn" class="w-full py-3 sm:py-4 bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-black rounded-xl shadow-lg shadow-emerald-500/20 transition-all uppercase tracking-widest text-xs sm:text-sm">
                     Add To Daily Log
                 </button>
             </div>
         </div>
 
-        <div class="lg:col-span-3 bg-slate-800 rounded-2xl p-6 border border-slate-700 shadow-xl mt-8">
-            <div class="flex justify-between items-center mb-6">
-            <h3 class="text-lg font-medium">Today's Meals</h3>
+        <div class="mt-6 sm:mt-8 bg-slate-800 rounded-2xl p-4 sm:p-6 border border-slate-700 shadow-xl ">
+            <div class="flex justify-between items-center mb-4 sm:mb-6">
+            <h3 class="text-base sm:text-lg font-medium">Today's Meals</h3>
             <span class="text-xs text-emerald-400 font-bold uppercase tracking-widest">Live Updates</span>
             </div>
     
              <div class="overflow-x-auto">
-            <table class="w-full text-left">
+            <table class="w-full text-left min-w-[500px]">
             <thead>
                 <tr class="text-gray-500 text-xs uppercase tracking-wider border-b border-slate-700">
                     <th class="pb-4 font-medium">Meal Type</th>
                     <th class="pb-4 font-medium">Food Item</th>
                     <th class="pb-4 font-medium">Calories</th>
-                    <th class="pb-4 font-medium">Time</th>
+                    <th class="pb-4 font-medium hidden sm:table-cell">Time</th>
                 </tr>
             </thead>
             <tbody id="meal-log-table" class="divide-y divide-slate-700/50">
@@ -232,28 +263,35 @@
              </div>
         </div>
         </div>
-        <div class="mt-8 bg-slate-900/40 p-8 rounded-3xl border border-emerald-500/20 shadow-xl">
-    <div class="flex justify-between items-center mb-6">
+
+
+        <div class="mt-6 sm:mt-8 bg-slate-900/40 p-6 sm:p-8 rounded-3xl border border-emerald-500/20 shadow-xl">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
         <div>
-            <h3 class="text-xl font-bold text-white">Consistency Tracker</h3>
-            <p class="text-slate-400 text-sm">30-Day Calorie Trend</p>
+            <h3 class="text-lg sm:text-xl font-bold text-white">Consistency Tracker</h3>
+            <p class="text-slate-400 text-xs sm:text-sm">30-Day Calorie Trend</p>
         </div>
-        <div class="flex flex-col items-end">
-            <div id="health-grade-badge" class="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 font-black text-2xl text-gray-500">--</div>
+        <div class="flex flex-col items-start sm:items-end">
+            <div id="health-grade-badge" class="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 font-black text-xl sm:text-2xl text-gray-500">--</div>
             <span class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Current Grade</span>
         </div>
     </div>
 
-    <div class="relative h-72 w-full bg-slate-800/30 rounded-2xl p-4 border border-slate-700/50">
+    <div class="relative h-64 sm:h-72 w-full bg-slate-800/30 rounded-2xl p-4 border border-slate-700/50">
         <canvas id="trendChart"></canvas>
     </div>
 
-    <div id="consistency-feedback" class="mt-4 text-center text-sm text-slate-400 italic bg-slate-950/30 py-3 rounded-xl border border-slate-800/50">
+    <div id="consistency-feedback" class="mt-4 text-center text-xs sm:text-sm text-slate-400 italic bg-slate-950/30 py-3 rounded-xl border border-slate-800/50">
         Loading AI analysis...
     </div>
 </div>
     </main>
   
     <script src="p1.js"></script>
+    <script>
+        function togglemenu(){
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>
