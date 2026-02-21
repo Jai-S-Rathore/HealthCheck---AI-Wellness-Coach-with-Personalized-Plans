@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join HealthTracker | AI Wellness</title>
+    <title>Login || HealthTracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="p1.css">
 </head>
-<body class="bg-slate-900 text-gray-100 min-h-screen flex items-center justify-center p-6">
-    <div class="w-full max-w-md bg-slate-800 rounded-2xl border border-slate-700 shadow-2xl p-8">
-        <div class="text-center mb-8">
-            <i class="fas fa-heartbeat text-emerald-500 text-4xl mb-4"></i>
-            <h1 class="text-2xl font-bold">Welcome Back 👋</h1>
-            <p class="text-gray-400 text-sm mt-2">Log in to continue tracking your health</p>
+<body class="bg-slate-900 text-gray-100 min-h-screen flex items-center justify-center p-4 sm:p-6">
+    <div class="w-full max-w-md bg-slate-800 rounded-2xl border border-slate-700 shadow-2xl p-6 sm:p-8">
+        <div class="text-center mb-6 sm:mb-8">
+            <i class="fas fa-heartbeat text-emerald-500 text-3xl sm:text-4xl mb-3 sm:mb-4"></i>
+            <h1 class="text-xl sm:text-2xl font-bold">Welcome Back 👋</h1>
+            <p class="text-gray-400 text-xs sm:text-sm mt-2">Log in to continue tracking your health</p>
         </div>
 
-        <form id="login-form" class="space-y-5">
+        <form id="login-form" class="space-y-4 sm:space-y-5">
             
             <div>
                 <label class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-2 block">Email Address</label>
-                <input type="email" id="email" required class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 focus:outline-none focus:border-emerald-500 transition" placeholder="name@example.com">
+                <input type="email" id="email" required class="w-full bg-slate-900 border border-slate-700 rounded-xl py-2.5 sm:py-3 px-3 sm:px-4 focus:outline-none focus:border-emerald-500 transition" placeholder="name@example.com">
             </div>
             <div>
                 <label class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-2 block">Password</label>
-                <input type="password" id="password" required class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 focus:outline-none focus:border-emerald-500 transition" placeholder="••••••••">
+                <input type="password" id="password" required class="w-full bg-slate-900 border border-slate-700 rounded-xl py-2.5 sm:py-3 px-3 sm:px-4 focus:outline-none focus:border-emerald-500 transition" placeholder="••••••••">
             </div>
-            <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition shadow-lg shadow-emerald-500/20">Log In</button>
+            <button type="submit" class="w-full py-2.5 sm:py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm sm:text-base">Log In</button>
         </form>
 
-        <p class="text-center mt-8 text-sm text-gray-400">
+        <p class="text-center mt-6 sm:mt-8 text-sm text-gray-400">
             New to HealthCheck? <a href="signup.html" class="text-emerald-500 hover:underline">Create an account</a>
         </p>
     </div>
